@@ -1,4 +1,3 @@
-import Divider from '@mui/material/Divider';
 import { useEffect, useRef, useState } from 'react';
 import Card from '@mui/material/Card';
 import Button from '@mui/material/Button';
@@ -21,7 +20,16 @@ const FileList = () => {
   };
 
   const downloadFile = (e) => {
-    console.log(e.target.value);
+    const targetFileName = e.target.value;
+    const apiEndpoint = 'http://127.0.0.1:8000/get_file/' + targetFileName;
+
+    console.log(apiEndpoint);
+
+    fetch(apiEndpoint)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+      });
   };
 
   const deleteFile = (e) => {
