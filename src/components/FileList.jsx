@@ -25,11 +25,11 @@ const FileList = () => {
 
     console.log(apiEndpoint);
 
-    fetch(apiEndpoint)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-      });
+    fetch(apiEndpoint);
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     console.log(data);
+    //   });
   };
 
   const deleteFile = (e) => {
@@ -58,9 +58,10 @@ const FileList = () => {
             <Card className="flex flex-col justify-center ">
               <p className="text-xl">{file.title}</p>
               <div>
-                <Button value={file.title} onClick={downloadFile}>
+                <a href={'http://127.0.0.1:8000/get_file/' + file.title}>
                   download
-                </Button>
+                </a>
+
                 <Button value={file.title} onClick={deleteFile}>
                   delete
                 </Button>
