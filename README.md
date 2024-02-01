@@ -49,3 +49,10 @@ yarn --dev add eslint-config-prettier
 }
 }
 ```
+
+### material ui
+
+```
+yarn add @mui/material @emotion/react @emotion/styled
+yarn add @mui/icons-material
+```
