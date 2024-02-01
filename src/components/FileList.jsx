@@ -1,15 +1,24 @@
-import { useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
+import Button from '@mui/material/Button';
 
 const FileList = () => {
+  const [files, setFiles] = useState([]);
+
+  const downloadUrl = () => {
+    const targetId = urlRef.current.value.slice(-11);
+    console.log(targetId);
+
+    // console.log(urlRef.current.value);
+  };
+
+  const urlRef = useRef();
+
   useEffect(() => {
     fetch('http://127.0.0.1:8000/file_info')
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
-        // const list = data.message;
-        // setBreeds(Object.keys(list));
+        setFiles(data);
       });
   }, []);
 
@@ -19,12 +28,16 @@ const FileList = () => {
 
       <Card className="p-4 bg-slate-400">
         <p className="text-3xl">File List</p>
+
+        {files.map((file) => {
+          return <li>{file.title}</li>;
+        })}
       </Card>
 
-      <Card className="p-4">
+      <Card className="p-4 space-y-3">
         <p className="text-3xl">Target List</p>
-
-        <CardContent>ここにはコンテントが入ります</CardContent>
+        <input className="w-96 bg-green-300" type="text" ref={urlRef}></input>
+        <Button onClick={downloadUrl}>DownLoad</Button>
       </Card>
     </div>
   );
