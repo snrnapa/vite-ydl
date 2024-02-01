@@ -1,3 +1,4 @@
+import Divider from '@mui/material/Divider';
 import { useEffect, useRef, useState } from 'react';
 import Card from '@mui/material/Card';
 import Button from '@mui/material/Button';
@@ -19,6 +20,14 @@ const FileList = () => {
       });
   };
 
+  const downloadFile = (e) => {
+    console.log(e.target.value);
+  };
+
+  const deleteFile = (e) => {
+    console.log(e.target.value);
+  };
+
   const urlRef = useRef();
 
   useEffect(() => {
@@ -33,11 +42,23 @@ const FileList = () => {
     <div className="space-y-6">
       <p className="text-3xl">YDL Application</p>
 
-      <Card className="p-4 bg-slate-400">
+      <Card className="p-4 bg-slate-400 space-y-3">
         <p className="text-3xl">File List</p>
 
         {files.map((file) => {
-          return <li>{file.title}</li>;
+          return (
+            <Card className="flex flex-col justify-center ">
+              <p className="text-xl">{file.title}</p>
+              <div>
+                <Button value={file.title} onClick={downloadFile}>
+                  download
+                </Button>
+                <Button value={file.title} onClick={deleteFile}>
+                  delete
+                </Button>
+              </div>
+            </Card>
+          );
         })}
       </Card>
 
