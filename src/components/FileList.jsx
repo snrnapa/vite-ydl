@@ -9,7 +9,14 @@ const FileList = () => {
     const targetId = urlRef.current.value.slice(-11);
     console.log(targetId);
 
-    // console.log(urlRef.current.value);
+    const apiEndpoint = 'http://127.0.0.1:8000/yt_donwload/' + targetId;
+    console.log(apiEndpoint);
+
+    fetch(apiEndpoint)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+      });
   };
 
   const urlRef = useRef();
