@@ -1,11 +1,12 @@
 import './App.css';
+import Downloader from './components/Downloader';
 import FileList from './components/FileList';
 
 function App() {
   return (
     <>
-      <h1 className="bg-teal-400">Vite + React</h1>
       <FileList />
+      <Downloader />
     </>
   );
 }

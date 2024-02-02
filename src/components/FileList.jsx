@@ -1,23 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import Card from '@mui/material/Card';
 import Button from '@mui/material/Button';
+import RefreshIcon from '@mui/icons-material/Refresh';
 
 const FileList = () => {
   const [files, setFiles] = useState([]);
-
-  const downloadUrl = () => {
-    const targetId = urlRef.current.value.slice(-11);
-    console.log(targetId);
-
-    const apiEndpoint = 'http://127.0.0.1:8000/yt_donwload/' + targetId;
-    console.log(apiEndpoint);
-
-    fetch(apiEndpoint)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-      });
-  };
 
   const downloadFile = (e) => {
     const targetFileName = e.target.value;
@@ -45,8 +32,6 @@ const FileList = () => {
     //   });
   };
 
-  const urlRef = useRef();
-
   useEffect(() => {
     fetch('http://127.0.0.1:8000/file_info')
       .then((response) => response.json())
@@ -58,6 +43,7 @@ const FileList = () => {
   return (
     <div className="space-y-6">
       <p className="text-3xl">YDL Application</p>
+      <RefreshIcon fontSize="large" />
 
       <Card className="p-4 bg-slate-400 space-y-3">
         <p className="text-3xl">File List</p>
@@ -78,12 +64,6 @@ const FileList = () => {
             </Card>
           );
         })}
-      </Card>
-
-      <Card className="p-4 space-y-3">
-        <p className="text-3xl">Target List</p>
-        <input className="w-96 bg-green-300" type="text" ref={urlRef}></input>
-        <Button onClick={downloadUrl}>DownLoad</Button>
       </Card>
     </div>
   );
