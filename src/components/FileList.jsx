@@ -33,7 +33,16 @@ const FileList = () => {
   };
 
   const deleteFile = (e) => {
-    console.log(e.target.value);
+    const targetFileName = e.target.value;
+    const apiEndpoint = 'http://127.0.0.1:8000/delete_file/' + targetFileName;
+
+    console.log(apiEndpoint);
+
+    fetch(apiEndpoint);
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     console.log(data);
+    //   });
   };
 
   const urlRef = useRef();
