@@ -15,10 +15,17 @@ const Downloader = () => {
   const [musicFlg, setMusicFlg] = useState(true);
 
   const downloadUrl = () => {
-    const targetId = urlRef.current.value.slice(-11);
+    // const targetId = urlRef.current.value.slice(-11);
+    const targetId = urlRef.current.value;
+    const options = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ url: targetId }),
+    };
+
     const apiEndpoint = api_host + '/yt_donwload/' + targetId;
     console.log(apiEndpoint);
-    fetch(apiEndpoint)
+    fetch(apiEndpoint, options)
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
