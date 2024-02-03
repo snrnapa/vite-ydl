@@ -56,3 +56,18 @@ yarn --dev add eslint-config-prettier
 yarn add @mui/material @emotion/react @emotion/styled
 yarn add @mui/icons-material
 ```
+
+### セッティング
+
+cat /etc/nginx/sites-available/default
+vi /etc/nginx/sites-available/default
+
+location /ydl {
+proxy_pass http://localhost:5173;
+}
+
+sudo ufw status
+
+sudo ufw allow 5173/tcp
+sudo ufw reload
+sudo ufw status
