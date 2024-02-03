@@ -12,7 +12,7 @@ const FileList = () => {
   //ファイルを削除する
   const deleteFile = (e) => {
     const targetFileName = e.target.value;
-    const apiEndpoint = api_host + 'delete_file/' + targetFileName;
+    const apiEndpoint = api_host + '/delete_file/' + targetFileName;
 
     fetch(apiEndpoint);
     //   .then((response) => response.json())
@@ -26,7 +26,7 @@ const FileList = () => {
   };
 
   useEffect(() => {
-    fetch('http://127.0.0.1:8000/file_info')
+    fetch(api_host + '/file_info')
       .then((response) => response.json())
       .then((data) => {
         setFiles(data);
@@ -45,12 +45,10 @@ const FileList = () => {
 
         {files.map((file) => {
           return (
-            <Card className="flex flex-col justify-center ">
+            <Card key={file.no} className="flex flex-col justify-center ">
               <p className="text-xl">{file.title}</p>
               <div>
-                <a href={'http://127.0.0.1:8000/get_file/' + file.title}>
-                  download
-                </a>
+                <a href={api_host + '/get_file/' + file.title}>download</a>
 
                 <Button value={file.title} onClick={deleteFile}>
                   delete
