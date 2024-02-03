@@ -6,19 +6,6 @@ import RefreshIcon from '@mui/icons-material/Refresh';
 const FileList = () => {
   const [files, setFiles] = useState([]);
 
-  const downloadFile = (e) => {
-    const targetFileName = e.target.value;
-    const apiEndpoint = 'http://127.0.0.1:8000/get_file/' + targetFileName;
-
-    console.log(apiEndpoint);
-
-    fetch(apiEndpoint);
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     console.log(data);
-    //   });
-  };
-
   const deleteFile = (e) => {
     const targetFileName = e.target.value;
     const apiEndpoint = 'http://127.0.0.1:8000/delete_file/' + targetFileName;
