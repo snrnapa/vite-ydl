@@ -5,7 +5,11 @@ import Card from '@mui/material/Card';
 import Button from '@mui/material/Button';
 
 const Downloader = () => {
-  const api_host = import.meta.env.VITE_API_HOST;
+  // レンタルサーバーにデプロイする場合
+  // const api_host = import.meta.env.VITE_API_HOST;
+  // vercelにデプロイだと環境変数が読めない
+  const api_host = 'https://www.napalog.com/ydl-back';
+
   const urlRef = useRef();
   const [movieFlg, setMovieFlg] = useState(false);
   const [musicFlg, setMusicFlg] = useState(true);
