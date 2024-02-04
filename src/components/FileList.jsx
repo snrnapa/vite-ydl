@@ -28,7 +28,9 @@ const FileList = () => {
   };
 
   const fetcher = (...args) => fetch(...args).then((res) => res.json());
-  const { data, error, isLoading } = useSWR(api_host + '/file_info', fetcher);
+  const { data, error, isLoading } = useSWR(api_host + '/file_info', fetcher, {
+    refreshInterval: 2000,
+  });
 
   const testconsole = () => {
     console.log(api_host + '/file_info');
