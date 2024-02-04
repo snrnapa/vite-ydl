@@ -17,13 +17,14 @@ const Downloader = () => {
   const downloadUrl = () => {
     // const targetId = urlRef.current.value.slice(-11);
     const targetId = urlRef.current.value;
+    console.log(JSON.stringify({ url: targetId }));
     const options = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ url: targetId }),
     };
 
-    const apiEndpoint = api_host + '/yt_donwload/' + targetId;
+    const apiEndpoint = api_host + '/yt_donwload';
     console.log(apiEndpoint);
     fetch(apiEndpoint, options)
       .then((response) => response.json())
