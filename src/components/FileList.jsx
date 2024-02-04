@@ -9,9 +9,9 @@ const FileList = () => {
   // const [files, setFiles] = useState([]);
 
   // レンタルサーバーにデプロイする場合
-  const api_host = 'http://127.0.0.1:8000/ydl-back';
+  // const api_host = 'http://127.0.0.1:8000/ydl-back';
   // vercelにデプロイだと環境変数が読めない
-  // const api_host = 'https://www.napalog.com/ydl-back';
+  const api_host = 'https://www.napalog.com/ydl-back';
   const [reloadCount, setReloadCount] = useState(0);
 
   //ファイルを削除する
