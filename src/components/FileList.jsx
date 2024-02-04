@@ -1,9 +1,9 @@
 import useSWR from 'swr';
 import { useState } from 'react';
-import Card from '@mui/material/Card';
 import Button from '@mui/material/Button';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import IconButton from '@mui/material/IconButton';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 const FileList = () => {
   const api_host = import.meta.env.VITE_API_HOST;
@@ -18,13 +18,22 @@ const FileList = () => {
 
     setReloadCount(reloadCount + 1);
   };
+
+  //全ファイルの削除
+  const deleteAll = () => {
+    const apiEndpoint = api_host + '/delete_all';
+
+    fetch(apiEndpoint);
+
+    setReloadCount(reloadCount + 1);
+  };
   const selfRefresh = () => {
     setReloadCount(reloadCount + 1);
   };
 
   const fetcher = (...args) => fetch(...args).then((res) => res.json());
   const { data, error, isLoading } = useSWR(api_host + '/file_info', fetcher, {
-    refreshInterval: 1000,
+    refreshInterval: 5000,
   });
 
   return (
@@ -38,6 +47,9 @@ const FileList = () => {
           <p className="text-3xl font-mono">File List</p>
           <IconButton onClick={selfRefresh}>
             <RefreshIcon fontSize="large" />
+          </IconButton>
+          <IconButton onClick={deleteAll}>
+            <DeleteForeverIcon fontSize="large" />
           </IconButton>
 
           {data.map((file) => {
