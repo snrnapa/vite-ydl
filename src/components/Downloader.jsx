@@ -5,9 +5,6 @@ import Card from '@mui/material/Card';
 import Button from '@mui/material/Button';
 
 const Downloader = () => {
-  // レンタルサーバーにデプロイする場合
-  // const api_host = 'http://127.0.0.1:8000/ydl-back';
-  // vercelにデプロイだと環境変数が読めない
   const api_host = import.meta.env.VITE_API_HOST;
 
   const urlRef = useRef();
