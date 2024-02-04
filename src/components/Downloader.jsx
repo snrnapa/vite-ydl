@@ -6,22 +6,30 @@ import Button from '@mui/material/Button';
 
 const Downloader = () => {
   // レンタルサーバーにデプロイする場合
-  // const api_host = import.meta.env.VITE_API_HOST;
+  const api_host = 'http://127.0.0.1:8000/ydl-back';
   // vercelにデプロイだと環境変数が読めない
-  const api_host = 'https://www.napalog.com/ydl-back';
+  // const api_host = 'https://www.napalog.com/ydl-back';
 
   const urlRef = useRef();
   const [movieFlg, setMovieFlg] = useState(false);
   const [musicFlg, setMusicFlg] = useState(true);
 
   const downloadUrl = () => {
-    // const targetId = urlRef.current.value.slice(-11);
-    const targetId = urlRef.current.value;
-    console.log(JSON.stringify({ url: targetId }));
+    // const url = urlRef.current.value.slice(-11);
+    const url = urlRef.current.value;
+
+    // POSTメソッドのBodyのJsonを出力して確認
+    console.log(
+      JSON.stringify({ url: url, movie_flg: movieFlg, music_flg: musicFlg }),
+    );
     const options = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ url: targetId }),
+      body: JSON.stringify({
+        url: url,
+        movie_flg: movieFlg,
+        music_flg: musicFlg,
+      }),
     };
 
     const apiEndpoint = api_host + '/yt_donwload';
@@ -54,7 +62,6 @@ const Downloader = () => {
               type="checkbox"
               checked={movieFlg}
               onChange={handleMovieFlg}
-              disabled="disabled"
             />
           </label>
           <label className="space-x-3">
