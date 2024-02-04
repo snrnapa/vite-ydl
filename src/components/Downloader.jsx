@@ -47,10 +47,18 @@ const Downloader = () => {
 
   return (
     <div>
-      <Card className="p-4 space-y-3">
-        <p className="text-3xl">Target List</p>
-        <input className="w-96 bg-green-300" type="text" ref={urlRef}></input>
-        <Button onClick={downloadUrl}>DownLoad</Button>
+      <div className="p-4 space-y-3 rounded border  shadow-lg bg-gray-400">
+        <p className="text-3xl font-mono">Target Youtube Url</p>
+        <div className="space-x-5">
+          <input
+            className=" w-7/12 p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            type="text"
+            ref={urlRef}
+          ></input>
+          <Button variant="contained" onClick={downloadUrl}>
+            DownLoad
+          </Button>
+        </div>
         <div className="flex-col flex space-y-2">
           <label className="space-x-3">
             <MovieIcon fontSize="large" />
@@ -71,7 +79,7 @@ const Downloader = () => {
             />
           </label>
         </div>
-      </Card>
+      </div>
     </div>
   );
 };

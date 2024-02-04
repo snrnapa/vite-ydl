@@ -6,8 +6,6 @@ import RefreshIcon from '@mui/icons-material/Refresh';
 import IconButton from '@mui/material/IconButton';
 
 const FileList = () => {
-  // const [files, setFiles] = useState([]);
-
   const api_host = import.meta.env.VITE_API_HOST;
   const [reloadCount, setReloadCount] = useState(0);
 
@@ -17,10 +15,7 @@ const FileList = () => {
     const apiEndpoint = api_host + '/delete_file/' + targetFileName;
 
     fetch(apiEndpoint);
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     console.log(data);
-    //   });
+
     setReloadCount(reloadCount + 1);
   };
   const selfRefresh = () => {
@@ -32,45 +27,38 @@ const FileList = () => {
     refreshInterval: 1000,
   });
 
-  const testconsole = () => {
-    console.log(api_host + '/file_info');
-  };
-
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 bg-gray-400 rounded ">
       {isLoading ? (
         <p>loading...</p>
       ) : error ? (
         <p>failed to load</p>
       ) : (
-        <div>
-          <p className="text-3xl">YDL Application</p>
+        <div className="p-4  space-y-3 rounded overflow-hidden shadow-lg">
+          <p className="text-3xl font-mono">File List</p>
           <IconButton onClick={selfRefresh}>
             <RefreshIcon fontSize="large" />
           </IconButton>
 
-          <Card className="p-4 bg-slate-400 space-y-3">
-            <p className="text-3xl">File List</p>
+          {data.map((file) => {
+            return (
+              <div
+                key={file.no}
+                className="flex flex-col justify-center rounded border  shadow-lg bg-cyan-100 "
+              >
+                <p className="text-xl">{file.title}</p>
+                <div>
+                  <a href={api_host + '/get_file/' + file.title}>download</a>
 
-            {data.map((file) => {
-              return (
-                <Card key={file.no} className="flex flex-col justify-center ">
-                  <p className="text-xl">{file.title}</p>
-                  <div>
-                    <a href={api_host + '/get_file/' + file.title}>download</a>
-
-                    <Button value={file.title} onClick={deleteFile}>
-                      delete
-                    </Button>
-                  </div>
-                </Card>
-              );
-            })}
-          </Card>
+                  <Button value={file.title} onClick={deleteFile}>
+                    delete
+                  </Button>
+                </div>
+              </div>
+            );
+          })}
         </div>
       )}
-
-      <button onClick={testconsole}>テストするがな</button>
     </div>
   );
 };
