@@ -1,15 +1,17 @@
-import { useEffect, useState } from 'react';
+import useSWR from 'swr';
+import { useState } from 'react';
 import Card from '@mui/material/Card';
 import Button from '@mui/material/Button';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import IconButton from '@mui/material/IconButton';
 
 const FileList = () => {
-  const [files, setFiles] = useState([]);
+  // const [files, setFiles] = useState([]);
+
   // レンタルサーバーにデプロイする場合
-  // const api_host = import.meta.env.VITE_API_HOST;
+  const api_host = import.meta.env.VITE_API_HOST;
   // vercelにデプロイだと環境変数が読めない
-  const api_host = 'https://www.napalog.com/ydl-back';
+  // const api_host = 'https://www.napalog.com/ydl-back';
   const [reloadCount, setReloadCount] = useState(0);
 
   //ファイルを削除する
@@ -28,39 +30,48 @@ const FileList = () => {
     setReloadCount(reloadCount + 1);
   };
 
-  useEffect(() => {
-    fetch(api_host + '/file_info')
-      .then((response) => response.json())
-      .then((data) => {
-        setFiles(data);
-      });
-  }, [reloadCount]);
+  const fetcher = (...args) => fetch(...args).then((res) => res.json());
+  const { data, error, isLoading } = useSWR(api_host + '/file_info', fetcher);
+
+  const testconsole = () => {
+    console.log(api_host + '/file_info');
+  };
 
   return (
     <div className="space-y-6">
-      <p className="text-3xl">YDL Application</p>
-      <IconButton onClick={selfRefresh}>
-        <RefreshIcon fontSize="large" />
-      </IconButton>
+      {isLoading ? (
+        <p>loading...</p>
+      ) : error ? (
+        <p>failed to load</p>
+      ) : (
+        <div>
+          <p className="text-3xl">YDL Application</p>
+          <IconButton onClick={selfRefresh}>
+            <RefreshIcon fontSize="large" />
+          </IconButton>
 
-      <Card className="p-4 bg-slate-400 space-y-3">
-        <p className="text-3xl">File List</p>
+          <Card className="p-4 bg-slate-400 space-y-3">
+            <p className="text-3xl">File List</p>
 
-        {files.map((file) => {
-          return (
-            <Card key={file.no} className="flex flex-col justify-center ">
-              <p className="text-xl">{file.title}</p>
-              <div>
-                <a href={api_host + '/get_file/' + file.title}>download</a>
+            {data.map((file) => {
+              return (
+                <Card key={file.no} className="flex flex-col justify-center ">
+                  <p className="text-xl">{file.title}</p>
+                  <div>
+                    <a href={api_host + '/get_file/' + file.title}>download</a>
 
-                <Button value={file.title} onClick={deleteFile}>
-                  delete
-                </Button>
-              </div>
-            </Card>
-          );
-        })}
-      </Card>
+                    <Button value={file.title} onClick={deleteFile}>
+                      delete
+                    </Button>
+                  </div>
+                </Card>
+              );
+            })}
+          </Card>
+        </div>
+      )}
+
+      <button onClick={testconsole}>テストするがな</button>
     </div>
   );
 };
