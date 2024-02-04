@@ -59,12 +59,14 @@ yarn add @mui/icons-material
 
 ### セッティング
 
-cat /etc/nginx/sites-available/default
-vi /etc/nginx/sites-available/default
+sudo cat /etc/nginx/sites-available/default
+sudo vi /etc/nginx/sites-available/default
 
 location /ydl {
 proxy_pass http://localhost:5173;
 }
+
+sudo service nginx reload
 
 sudo ufw status
 
