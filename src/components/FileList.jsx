@@ -1,9 +1,8 @@
 import useSWR from 'swr';
 import { useState } from 'react';
 import Button from '@mui/material/Button';
-import RefreshIcon from '@mui/icons-material/Refresh';
 import IconButton from '@mui/material/IconButton';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import { ArrowClockwise, Trash } from 'phosphor-react';
 
 const FileList = () => {
   const api_host = import.meta.env.VITE_API_HOST;
@@ -46,10 +45,10 @@ const FileList = () => {
         <div className="p-4  space-y-3 rounded overflow-hidden shadow-lg">
           <p className="text-3xl font-mono">File List</p>
           <IconButton onClick={selfRefresh}>
-            <RefreshIcon fontSize="large" />
+            <ArrowClockwise size={42} />
           </IconButton>
           <IconButton onClick={deleteAll}>
-            <DeleteForeverIcon fontSize="large" />
+            <Trash size={42} />
           </IconButton>
 
           {data.map((file) => {
@@ -60,9 +59,14 @@ const FileList = () => {
               >
                 <p className="text-xl text-white">{file.title}</p>
                 <div>
-                  <a className='text-blue-200' href={api_host + '/get_file/' + file.title}>download</a>
+                  <a
+                    className="text-blue-200"
+                    href={api_host + '/get_file/' + file.title}
+                  >
+                    download
+                  </a>
 
-                  <Button   value={file.title} onClick={deleteFile}>
+                  <Button value={file.title} onClick={deleteFile}>
                     delete
                   </Button>
                 </div>

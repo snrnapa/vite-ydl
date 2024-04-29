@@ -1,8 +1,7 @@
-import MovieIcon from '@mui/icons-material/Movie';
-import MusicNoteIcon from '@mui/icons-material/MusicNote';
 import { useRef, useState } from 'react';
 import Button from '@mui/material/Button';
 import Swal from 'sweetalert2';
+import { FileVideo, MusicNote } from 'phosphor-react';
 
 const Downloader = () => {
   const api_host = import.meta.env.VITE_API_HOST;
@@ -11,7 +10,7 @@ const Downloader = () => {
   const [movieFlg, setMovieFlg] = useState(false);
   const [musicFlg, setMusicFlg] = useState(true);
 
-  const downloadUrl = async() => {
+  const downloadUrl = async () => {
     // const url = urlRef.current.value.slice(-11);
     const url = urlRef.current.value;
 
@@ -33,14 +32,14 @@ const Downloader = () => {
     console.log(apiEndpoint);
     fetch(apiEndpoint, options);
 
-     await Swal.fire({
+    await Swal.fire({
       title: 'ダウンロードを開始します🥺🥺🥺',
       text: '',
       icon: 'info',
       confirmButtonText: 'OK',
       timer: 7000,
     });
-    urlRef.current.value  = "";
+    urlRef.current.value = '';
   };
 
   const handleMovieFlg = () => {
@@ -64,9 +63,9 @@ const Downloader = () => {
             DownLoad
           </Button>
         </div>
-        <div className="flex-col flex space-y-2">
-          <label className="space-x-3">
-            <MovieIcon fontSize="large" />
+        <div className=" flex justify-center  space-x-5 ">
+          <label className="space-x-3 flex justify-center">
+            <FileVideo size={42} />
             <input
               className="w-7 h-7"
               type="checkbox"
@@ -74,8 +73,8 @@ const Downloader = () => {
               onChange={handleMovieFlg}
             />
           </label>
-          <label className="space-x-3">
-            <MusicNoteIcon fontSize="large" />
+          <label className="space-x-3 flex justify-center">
+            <MusicNote size={42} />
             <input
               className="w-7 h-7"
               type="checkbox"
