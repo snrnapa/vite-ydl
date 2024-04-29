@@ -1,8 +1,8 @@
 import MovieIcon from '@mui/icons-material/Movie';
 import MusicNoteIcon from '@mui/icons-material/MusicNote';
 import { useRef, useState } from 'react';
-import Card from '@mui/material/Card';
 import Button from '@mui/material/Button';
+import Swal from 'sweetalert2';
 
 const Downloader = () => {
   const api_host = import.meta.env.VITE_API_HOST;
@@ -11,7 +11,7 @@ const Downloader = () => {
   const [movieFlg, setMovieFlg] = useState(false);
   const [musicFlg, setMusicFlg] = useState(true);
 
-  const downloadUrl = () => {
+  const downloadUrl = async() => {
     // const url = urlRef.current.value.slice(-11);
     const url = urlRef.current.value;
 
@@ -31,11 +31,16 @@ const Downloader = () => {
 
     const apiEndpoint = api_host + '/yt_donwload';
     console.log(apiEndpoint);
-    fetch(apiEndpoint, options)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-      });
+    fetch(apiEndpoint, options);
+
+     await Swal.fire({
+      title: 'ダウンロードを開始します🥺🥺🥺',
+      text: '',
+      icon: 'info',
+      confirmButtonText: 'OK',
+      timer: 7000,
+    });
+    urlRef.current.value  = "";
   };
 
   const handleMovieFlg = () => {
@@ -47,7 +52,7 @@ const Downloader = () => {
 
   return (
     <div>
-      <div className="p-4 space-y-3 rounded border  shadow-lg bg-gray-400">
+      <div className="p-4 space-y-3 rounded border  shadow-lg bg-gray-500">
         <p className="text-3xl font-mono">Target Youtube Url</p>
         <div className="space-x-5">
           <input

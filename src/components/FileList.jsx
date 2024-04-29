@@ -37,7 +37,7 @@ const FileList = () => {
   });
 
   return (
-    <div className="space-y-6 bg-gray-400 rounded ">
+    <div className="space-y-6 bg-gray-500 rounded ">
       {isLoading ? (
         <p>loading...</p>
       ) : error ? (
@@ -56,13 +56,13 @@ const FileList = () => {
             return (
               <div
                 key={file.no}
-                className="flex flex-col justify-center rounded border  shadow-lg bg-cyan-100 "
+                className="flex flex-col justify-center rounded border  shadow-lg bg-gray-700 "
               >
-                <p className="text-xl">{file.title}</p>
+                <p className="text-xl text-white">{file.title}</p>
                 <div>
-                  <a href={api_host + '/get_file/' + file.title}>download</a>
+                  <a className='text-blue-200' href={api_host + '/get_file/' + file.title}>download</a>
 
-                  <Button value={file.title} onClick={deleteFile}>
+                  <Button   value={file.title} onClick={deleteFile}>
                     delete
                   </Button>
                 </div>

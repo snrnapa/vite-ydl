@@ -16,6 +16,7 @@
     "@mui/material": "^5.15.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "sweetalert2": "^11.10.8",
     "swr": "^2.2.4"
   },
   "devDependencies": {
