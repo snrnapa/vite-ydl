@@ -2,7 +2,7 @@ import useSWR from 'swr';
 import { useState } from 'react';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
-import { ArrowClockwise, Trash } from 'phosphor-react';
+import { ArrowClockwise, CloudArrowDown, Trash } from 'phosphor-react';
 
 const FileList = () => {
   const api_host = import.meta.env.VITE_API_HOST;
@@ -35,6 +35,27 @@ const FileList = () => {
     refreshInterval: 5000,
   });
 
+  const downloadAll = async () => {
+    const apiEndpoint = api_host + '/download_all';
+
+    try {
+      const response = await fetch(apiEndpoint);
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'all_files.zip'; // ダウンロードするファイル名を指定
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    } catch (error) {
+      console.error('Failed to download file:', error);
+    }
+  };
+
   return (
     <div className="space-y-6 bg-gray-500 rounded ">
       {isLoading ? (
@@ -44,13 +65,15 @@ const FileList = () => {
       ) : (
         <div className="p-4  space-y-3 rounded overflow-hidden shadow-lg">
           <p className="text-3xl font-mono">File List</p>
-          <IconButton onClick={selfRefresh}>
-            <ArrowClockwise size={42} />
-          </IconButton>
-          <IconButton onClick={deleteAll}>
-            <Trash size={42} />
-          </IconButton>
-
+          <div className="flex justify-center space-x-5 ">
+            <CloudArrowDown size={50} onClick={downloadAll} />
+            <IconButton onClick={selfRefresh}>
+              <ArrowClockwise size={42} />
+            </IconButton>
+            <IconButton onClick={deleteAll}>
+              <Trash size={42} />
+            </IconButton>
+          </div>
           {data.map((file) => {
             return (
               <div
